@@ -10,13 +10,20 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+
 import CommonUtility.ExcelOperation;
+import CommonUtility.KMBLog;
 import CommonUtility.CommonMethods;
 import CommonUtility.ScreenShot;
 import CommonUtility.SetUp;
+import TestScript.leadCreationTest1;
 
 public class LoginPage extends SetUp
 {
+	//String temp = null;
 	public LoginPage(WebDriver driver)
 	{
 		PageFactory.initElements(driver, this);
@@ -61,46 +68,55 @@ public class LoginPage extends SetUp
 			}
 			
 	
-	public void CRMLogin()
+	public void CRMLogin() throws Exception
 	{
 		try 
 		{
-				ScreenShot.takeSnapShot(driver,"login.png");
-			
+				ScreenShot.takeSnapShot("Login");
+				//ScreenShot.ExtentTest.log(Status.PASS," CRM Login intiated ", MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
+
 				CommonMethods.ExWait(userName());
 				userName().click();
-				//userName().sendKeys(ExcelOperation.readData("Sheet1",1,0));
-				userName().sendKeys(ExcelOperation.getCellData("Sheet1","Username", 1));
-				System.out.println("Username =" +userName().getAttribute("value"));
+				KMBLog.logDebug("Clicked on Username textbox");
+				CommonMethods.input(userName,"HLNewLead","Username", 1);
+				KMBLog.logInfo("Username =" +userName().getAttribute("value"));
 			
 				CommonMethods.ExWait(password()); 
 				password().click();
-				//password().sendKeys(ExcelOperation.readData("Sheet1",1,1));
-				password().sendKeys(ExcelOperation.getCellData("Sheet1","Password", 1));
-				System.out.println("Password ="+password().getAttribute("value"));
+				KMBLog.logDebug("Clicked on Password textbox");
+				CommonMethods.input(password,"HLNewLead","Password", 1);
+				KMBLog.logInfo("Password ="+password().getAttribute("value"));
 
 				CommonMethods.ExWait(loginBtn());
 				CommonMethods.highLight(loginBtn());
 				loginBtn().click();
-				 
-				ScreenShot.takeSnapShot(driver,"homepage.png");
-				 
+				KMBLog.logDebug("Clicked on Login Button");
+
+				ScreenShot.takeSnapShot("HomePage");
+				//ScreenShot.ExtentTest.log(Status.PASS," Home Page Open ", MediaEntityBuilder.createScreenCaptureFromPath(temp).build());
+
 				try {
 					Thread.sleep(1000);
 					CommonMethods.ExWait(ProfileBtn());
 					CommonMethods.highLight(ProfileBtn());
 					ProfileBtn().click();
+					KMBLog.logDebug("Clicked on Profile icon");
 					Thread.sleep(1000);
 					CommonMethods.highLight(UserRoleLOVs());
 					Thread.sleep(1000);
+					CommonMethods.selectByText(UserRoleLOVs(),"HLNewLead","UserRole", 1);
+					KMBLog.logInfo("User role selected as "+ExcelOperation.getCellData("HLNewLead", "UserRole", 1));
 
-					CommonMethods.selectByText(UserRoleLOVs(),"Relationship Manager");
 					Thread.sleep(1000);
+					
 				}catch(Exception e) {System.out.println("Profile exception:"+e.getMessage());}
 				
 		}catch (Exception e) 
 		{
-			System.out.println("Exception :"+e);
+			ScreenShot.takeSnapShot("Login Exception");
+			System.out.println("Login Exception :"+e.getMessage());
+			KMBLog.logError("Login Exception :"+e.getMessage());
+			
 		}
 	}
 	

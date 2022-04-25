@@ -153,20 +153,20 @@ public class CustomerAcceptance extends SetUp
 				
 				AppTodayDate.click();
 				AppTime.clear();
-				//AppTime.sendKeys(ExcelOperation.readData("Sheet1", 1, 19));
-				AppTime.sendKeys(ExcelOperation.getCellData("Sheet1","Follow up Time",1));
+				//AppTime.sendKeys(ExcelOperation.readData("HLNewLead", 1, 19));
+				AppTime.sendKeys(ExcelOperation.getCellData("HLNewLead","Follow up Time",1));
 				CommonMethods.ExWait(MeetLocLbl);
 				MeetLocField.click();
 				MeetLocField.clear();
-				//MeetLocField.sendKeys(ExcelOperation.readData("Sheet1", 1, 22));
-				MeetLocField.sendKeys(ExcelOperation.getCellData("Sheet1", "Meeting Location",1));
+				//MeetLocField.sendKeys(ExcelOperation.readData("HLNewLead", 1, 22));
+				MeetLocField.sendKeys(ExcelOperation.getCellData("HLNewLead", "Meeting Location",1));
 				Thread.sleep(1000);
 				saveProceedBtn.click();
 				Thread.sleep(1000);
 
 				CommonMethods.ExWait(leadStatusCodeLbl);
 				writeToExcel();
-				ScreenShot.takeSnapShot(driver,"Appointment Fixed.png");
+				ScreenShot.takeSnapShot("Appointment Fixed");
 				
 			} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -180,8 +180,8 @@ public class CustomerAcceptance extends SetUp
 			try {
 				Thread.sleep(2000);
 				CommonMethods.ExWait(leadStatusCodeLbl);
-			  	ExcelOperation.writeToExcel("Output", ExcelOperation.getRowCount("Output"), 2, leadStatusCodeVal().getText());
-			  	ExcelOperation.writeToExcel("Output", ExcelOperation.getRowCount("Output"), 3, leadLastModifyVal().getText());
+			  	ExcelOperation.writeToExcel("Output", ExcelOperation.getRowCount("Output"), 3, leadStatusCodeVal().getText());
+			  	ExcelOperation.writeToExcel("Output", ExcelOperation.getRowCount("Output"), 4, leadLastModifyVal().getText());
 			  }
 			  catch (Exception e) {}
 		}
@@ -275,7 +275,7 @@ public class CustomerAcceptance extends SetUp
 				Thread.sleep(1000);
 				CommonMethods.scrollByVisibilityofElement(DrivingLicLbl);
 				CommonMethods.ExWait(DrivingLicLbl);
-				DrivingLicUploadBtn.sendKeys(ExcelOperation.getCellData("Sheet1","Document Upload", 1));
+				DrivingLicUploadBtn.sendKeys(ExcelOperation.getCellData("HLNewLead","Document Upload", 1));
 
 				try {
 					System.out.println("Doc Upload warning: "+warningMsg.getText());
@@ -309,7 +309,7 @@ public class CustomerAcceptance extends SetUp
 				Thread.sleep(1000);	
 				CommonMethods.scrollByVisibilityofElement(ElictricityBillLbl);
 				CommonMethods.ExWait(ElictricityBillLbl);
-				ElictricityBillUploadBtn.sendKeys(ExcelOperation.getCellData("Sheet1", "Document Upload", 1));
+				ElictricityBillUploadBtn.sendKeys(ExcelOperation.getCellData("HLNewLead", "Document Upload", 1));
 				try {
 					System.out.println("Doc Upload warning: "+warningMsg.getText());
 					warningOKBtn.click();
@@ -322,10 +322,22 @@ public class CustomerAcceptance extends SetUp
 			
 			
 			saveProceedBtn.click();
-			
+			Thread.sleep(2000);
 			CommonMethods.ExWait(leadStatusCodeLbl);
 			writeToExcel();
-			ScreenShot.takeSnapShot(driver,"DocPending.png");
+			int row = ExcelOperation.getRowCount("Output");
+			String leadStatus = ExcelOperation.getCellData("Output", "Lead Status", row);
+			System.out.println("Lead status = "+leadStatus);
+			if(leadStatus.equalsIgnoreCase("Documents Pending"))
+			{
+				ExcelOperation.writeToExcel("Output",row, 5, "PASS");
+			}
+			else
+			{
+				ExcelOperation.writeToExcel("Output", row, 5, "FAIL");
+			}
+			
+			ScreenShot.takeSnapShot("DocPending");
 
 			
 		} catch (InterruptedException e) {
@@ -368,8 +380,8 @@ public class CustomerAcceptance extends SetUp
 			
 			AppTodayDate.click();
 			AppTime.clear();
-			//AppTime.sendKeys(ExcelOperation.readData("Sheet1", 1, 19 ));
-			AppTime.sendKeys(ExcelOperation.getCellData("Sheet1", "Follow up Time",1));
+			//AppTime.sendKeys(ExcelOperation.readData("HLNewLead", 1, 19 ));
+			AppTime.sendKeys(ExcelOperation.getCellData("HLNewLead", "Follow up Time",1));
 			Thread.sleep(1000);	
 			
 			saveProceedBtn.click();
@@ -378,7 +390,7 @@ public class CustomerAcceptance extends SetUp
 			CommonMethods.ExWait(leadStatusCodeLbl);
 			writeToExcel();
 
-			ScreenShot.takeSnapShot(driver,"FollowUp.png");
+			ScreenShot.takeSnapShot("FollowUp");
 
 		} catch (Exception e) {
 			System.out.println("FollowUpAppointment Exception :"+e);	

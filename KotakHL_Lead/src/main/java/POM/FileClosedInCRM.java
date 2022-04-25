@@ -390,6 +390,24 @@ public class FileClosedInCRM extends SetUp
 				  }
 				  catch (Exception e) {}
 			}
+			
+			
+			//upload Warning pop up
+			
+			@FindBy(xpath="//div[@class='warning__message']")   //Warning message
+			private WebElement warningMsg;
+			public WebElement warningMsg()
+			{
+				return warningMsg;
+			}
+			
+			@FindBy(xpath="//button[@type='button' and contains(text(),'Ok')]")   //Warning message OK button
+			private WebElement warningOKBtn;
+			public WebElement warningOKBtn()
+			{
+				return warningOKBtn;
+			}
+			
 			public void DocCollected()
 			{
 				try 
@@ -399,13 +417,13 @@ public class FileClosedInCRM extends SetUp
 					Thread.sleep(1000);
 					FileClosedTab.click();
 					
-					//CommonMethods.selectByText(IndividualLOV,ExcelOperation.readData("Sheet1", 1, 33));
-					CommonMethods.selectByText(IndividualLOV,ExcelOperation.getCellData("Sheet1", "Individual/Non-Individual",1));
+					//CommonMethods.selectByText(IndividualLOV,ExcelOperation.readData("HLNewLead", 1, 33));
+					CommonMethods.selectByText(IndividualLOV,"HLNewLead", "Individual/Non-Individual",1);
 					Thread.sleep(1000);
 
 					employerName.clear();
-					employerName.sendKeys(ExcelOperation.getCellData("Sheet1", "Employer Name",1));
-					//employerName.sendKeys(ExcelOperation.readData("Sheet1", 1, 23));
+					employerName.sendKeys(ExcelOperation.getCellData("HLNewLead", "Employer Name",1));
+					//employerName.sendKeys(ExcelOperation.readData("HLNewLead", 1, 23));
 
 					try {
 					Thread.sleep(1000);
@@ -426,38 +444,40 @@ public class FileClosedInCRM extends SetUp
 					CommonMethods.scrollByVisibilityofElement(PANFld);
 					CommonMethods.ExWait(PANLbl);
 					PANFld.clear();
-					//PANFld.sendKeys(ExcelOperation.readData("Sheet1", 1, 24));
-					PANFld.sendKeys(ExcelOperation.getCellData("Sheet1", "PAN",1));
+					//PANFld.sendKeys(ExcelOperation.readData("HLNewLead", 1, 24));
+					PANFld.sendKeys(ExcelOperation.getCellData("HLNewLead", "PAN",1));
 					
 					CommonMethods.ExWait(WorkExpLbl);
-					CommonMethods.selectByText(WorkExpLOV, ExcelOperation.getCellData("Sheet1", "Work Experince",1));
-					//CommonMethods.selectByText(WorkExpLOV, ExcelOperation.readData("Sheet1", 1,25));
+					CommonMethods.selectByText(WorkExpLOV, "HLNewLead", "Work Experince",1);
+					//CommonMethods.selectByText(WorkExpLOV, ExcelOperation.readData("HLNewLead", 1,25));
 					
 					CommonMethods.ExWait(DigiHLLOV);
-					CommonMethods.selectByText(DigiHLLOV, ExcelOperation.getCellData("Sheet1", "DIGI HL",1));
-					//CommonMethods.selectByText(DigiHLLOV, ExcelOperation.readData("Sheet1", 1,26));
+					CommonMethods.selectByText(DigiHLLOV, "HLNewLead", "DIGI HL",1);
+					//CommonMethods.selectByText(DigiHLLOV, ExcelOperation.readData("HLNewLead", 1,26));
 
 					CommonMethods.scrollByVisibilityofElement(CIBILConstLbl);
 					Thread.sleep(1000);
 					CIBILConstChkbox.click();
 					
+					try {
 					CommonMethods.scrollByVisibilityofElement(CreditSchmLbl);
-					CommonMethods.selectByText(CreditSchmLOVs, ExcelOperation.getCellData("Sheet1", "Credit scheme",1));
-					//CommonMethods.selectByText(CreditSchmLOVs, ExcelOperation.readData("Sheet1", 1,27));
+					CommonMethods.selectByText(CreditSchmLOVs,"HLNewLead", "Credit scheme",1);
+					//CommonMethods.selectByText(CreditSchmLOVs, ExcelOperation.readData("HLNewLead", 1,27));
 					Thread.sleep(1000);
+					}catch(Exception e) {System.out.println(e.getMessage());}
 					
 					CommonMethods.scrollByVisibilityofElement(AddTypeLbl);
-					CommonMethods.selectByText(AddTypeLOVS, ExcelOperation.getCellData("Sheet1", "Address Type",1));
-					//CommonMethods.selectByText(AddTypeLOVS, ExcelOperation.readData("Sheet1", 1,28));
+					CommonMethods.selectByText(AddTypeLOVS,"HLNewLead", "Address Type",1);
+					//CommonMethods.selectByText(AddTypeLOVS, ExcelOperation.readData("HLNewLead", 1,28));
 					Thread.sleep(1000);
 					
 					try {
-						//PincodeFld.sendKeys(ReadExcel.readData("Sheet1", 1, 29));
+						//PincodeFld.sendKeys(ReadExcel.readData("HLNewLead", 1, 29));
 						PincodeSrchBtn.click();
-						Thread.sleep(2000);
+						Thread.sleep(3000);
 						CommonMethods.ExWait(PincodeSrchTxtBox);
-						PincodeSrchTxtBox.sendKeys(ExcelOperation.getCellData("Sheet1", "Pincode",1));
-						//PincodeSrchTxtBox.sendKeys(ExcelOperation.readData("Sheet1", 1, 29));
+						PincodeSrchTxtBox.sendKeys(ExcelOperation.getCellData("HLNewLead", "Pincode",1));
+						//PincodeSrchTxtBox.sendKeys(ExcelOperation.readData("HLNewLead", 1, 29));
 						PinSrchArrow.click();
 						Thread.sleep(1000);
 						FirstPincode.click();
@@ -469,59 +489,63 @@ public class FileClosedInCRM extends SetUp
 					Thread.sleep(1000);
 					CommonMethods.ExWait(Add1Fld);
 					Add1Fld.clear();
-					Add1Fld.sendKeys(ExcelOperation.getCellData("Sheet1", "Address line 1",1));
-					//Add1Fld.sendKeys(ExcelOperation.readData("Sheet1", 1, 30));
+					Add1Fld.sendKeys(ExcelOperation.getCellData("HLNewLead", "Address line 1",1));
+					//Add1Fld.sendKeys(ExcelOperation.readData("HLNewLead", 1, 30));
 
 					CommonMethods.scrollByVisibilityofElement(PermanentAddLbl);
-					CommonMethods.selectByText(PermanentAddLOVs, ExcelOperation.getCellData("Sheet1", "Is Permanent Add",1));
-					//CommonMethods.selectByText(PermanentAddLOVs, ExcelOperation.readData("Sheet1", 1, 31));
+					CommonMethods.selectByText(PermanentAddLOVs,"HLNewLead", "Is Permanent Add",1);
+					//CommonMethods.selectByText(PermanentAddLOVs, ExcelOperation.readData("HLNewLead", 1, 31));
 
 				//Identity Proof Upload
-				/*
-				 * try { Thread.sleep(2000);
-				 * CommonMethods.scrollByVisibilityofElement(VoterIdLbl);
-				 * CommonMethods.ExWait(VoterIdLbl); VoterIdUploadBtn.
-				 * sendKeys("C:\\Users\\Vrunda Vibhute\\Pictures\\Saved Pictures\\8.jpg");
-				 * //System.out.println("Upload of voter ID done..");
-				 * 
-				 * 
-				 * } catch (Exception e) {
-				 * System.out.println("voter card ID Upload exception :"+e.getMessage()); }
-				 */
 				
+					try { 
+						Thread.sleep(2000);
+						CommonMethods.scrollByVisibilityofElement(VoterIdLbl);
+						CommonMethods.ExWait(VoterIdLbl); 
+						//  VoterIdUploadBtn.sendKeys(ExcelOperation.getCellData("HLNewLead","Document Upload", 1));
+						CommonMethods.input(VoterIdUploadBtn,"HLNewLead","Document Upload", 1);
+						try {
+							System.out.println("Doc Upload warning: "+warningMsg.getText());
+							warningOKBtn.click();
+						} catch (Exception e) {}
+
+
+					} catch (Exception e) {
+						System.out.println("voter card ID Upload exception :"+e.getMessage()); }
+				 
 					
 				//Gender	
 					Thread.sleep(1000);
 					CommonMethods.scrollByVisibilityofElement(GenderLbl);
-					CommonMethods.selectByText(GenderLov, ExcelOperation.getCellData("Sheet1", "Gender",1));
+					CommonMethods.selectByText(GenderLov,"HLNewLead", "Gender",1);
 
 				//Maiden Name
 					Thread.sleep(1000);
 					CommonMethods.scrollByVisibilityofElement(MaidenName);
-					MaidenName.sendKeys(ExcelOperation.getCellData("Sheet1","Maiden Name", 1));
+					MaidenName.sendKeys(ExcelOperation.getCellData("HLNewLead","Maiden Name", 1));
 					
 				//Martial status
 					Thread.sleep(1000);
 					CommonMethods.scrollByVisibilityofElement(MaritalStatusLOV);
-					CommonMethods.selectByText(MaritalStatusLOV , ExcelOperation.getCellData("Sheet1", "Marital Status", 1));
+					CommonMethods.selectByText(MaritalStatusLOV ,"HLNewLead", "Marital Status", 1);
 				
 				//Occupation Type	
 					Thread.sleep(1000);
 					CommonMethods.scrollByVisibilityofElement(OccTypeLOV);
-					CommonMethods.selectByText(OccTypeLOV , ExcelOperation.getCellData("Sheet1", "Occupation Type", 1));
+					CommonMethods.selectByText(OccTypeLOV ,"HLNewLead", "Occupation Type", 1);
 				
 				//Income
 					Thread.sleep(1000);
 					CommonMethods.scrollByVisibilityofElement(IncomeLOV);
-					CommonMethods.selectByText(IncomeLOV , ExcelOperation.getCellData("Sheet1", "Income", 1));
+					CommonMethods.selectByText(IncomeLOV ,"HLNewLead", "Income", 1);
 				
 				//Education
 					Thread.sleep(1000);
 					CommonMethods.scrollByVisibilityofElement(EducationLOV);
-					CommonMethods.selectByText(EducationLOV , ExcelOperation.getCellData("Sheet1", "Education", 1));
+					CommonMethods.selectByText(EducationLOV ,"HLNewLead", "Education", 1);
 				
 					Thread.sleep(1000);
-					ScreenShot.Ashot(driver,"FileClosedInCRM1.jpg");
+					ScreenShot.Ashot("FileClosedInCRM1");
 
 					
 				//Save & Proceed Button	
@@ -530,7 +554,7 @@ public class FileClosedInCRM extends SetUp
 					Thread.sleep(3000);
 					//CommonMethods.ExWaitWithJS("https://kmb.crmnext.com/sng7/app/crmnextobject/detail/Lead?x");
 					CommonMethods.ExWait(leadStatusCodeLbl);
-					ScreenShot.takeSnapShot(driver,"DocCollected.png");
+					ScreenShot.takeSnapShot("DocCollected");
 					Thread.sleep(1000);
 					writeToExcel();
 					
@@ -564,7 +588,7 @@ public class FileClosedInCRM extends SetUp
 					Thread.sleep(1000);
 					CommonMethods.ExWait(leadStatusCodeLbl);
 					Thread.sleep(1000);
-					ScreenShot.takeSnapShot(driver,"SentToLOS1.png");
+					ScreenShot.takeSnapShot("SentToLOS1");
 					Thread.sleep(1000);
 					writeToExcel();
 					Thread.sleep(1000);

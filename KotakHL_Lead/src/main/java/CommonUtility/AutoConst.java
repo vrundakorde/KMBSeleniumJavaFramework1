@@ -1,6 +1,8 @@
 package CommonUtility;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -8,8 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public interface AutoConst 
 {
 	String TEST_URL = "https://kmb.crmnext.com/sng7/app/login/login";
-	String CHROME_KEY = "webdriver.chrome.driver";
-	String CHROME_VALUE = "C:\\Users\\Vrunda Vibhute\\eclipse-workspace\\KotakHL_Sales\\Lib\\ChromeDriver\\chromedriver.exe";
-	String ExcelPATH = "C:\\Users\\Vrunda Vibhute\\eclipse-workspace\\KotakHL_Lead\\TestData\\TestData_LeadDetails.xlsx";
-
+	String ExcelPATH = "C:\\Users\\Vrunda Vibhute\\git\\KMBSeleniumJavaFramework1\\KotakHL_Lead\\TestData\\TestData_LeadDetails.xlsx";
+	
+	String SheetName = "TestScenario";	
+	String folderDate = new SimpleDateFormat("dd-MM-yyyy HH").format(new Date());
 }

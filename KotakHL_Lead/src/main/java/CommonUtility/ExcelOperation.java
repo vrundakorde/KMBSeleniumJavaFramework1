@@ -16,6 +16,8 @@ import org.apache.poi.ss.formula.functions.Columns;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -29,70 +31,96 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public class ExcelOperation implements AutoConst
 {
-	
+
 	static HashMap<String, Integer> excelColumns = new HashMap<String, Integer>();
-	
+
 	public static int getRowCount(String sheet) throws IOException
 	{
 		File f = new File(ExcelPATH);
-		
+
 		//Create an object of FileInputStream class to read excel file
-        FileInputStream inputStream = new FileInputStream(f);
-        
-        //creating workbook instance that refers to .xlsx file
-        XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
-        
-        int rowCount = wb.getSheet(sheet).getLastRowNum();
-        
-        return rowCount; 
+		FileInputStream inputStream = new FileInputStream(f);
+
+		//creating workbook instance that refers to .xlsx file
+		XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
+
+		int rowCount = wb.getSheet(sheet).getLastRowNum();
+
+		return rowCount; 
 	}
-	
+
 	//To read test data from excel sheet
 	public static String readData(String sheet , int rowNum , int colNum) throws EncryptedDocumentException, IOException
 	{
 		//System.out.println("Write values : "+sheet +"|"+m+"|"+n+"|"+data);
 		File f = new File(ExcelPATH);
-		
+
 		//Create an object of FileInputStream class to read excel file
-        FileInputStream inputStream = new FileInputStream(f);
-        
-        //creating workbook instance that refers to .xls file
-        XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
-        String data = null;
+		FileInputStream inputStream = new FileInputStream(f);
+
+		//creating workbook instance that refers to .xls file
+		XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
+
+		String CellData;
 		Cell cell  = wb.getSheet(sheet).getRow(rowNum).getCell(colNum);
-		
+
+
 		DataFormatter formatter = new DataFormatter();
-		data = formatter.formatCellValue(cell);
-		System.out.println("Excel data = "+data);
+		CellData = formatter.formatCellValue(cell);
+		CellData= cell.getStringCellValue();
+		System.out.println("Excel data = "+CellData);
 		
+//		switch (cell.getCellType()){
+//		case STRING:
+//			CellData = formatter.formatCellValue(cell);
+//			CellData= cell.getStringCellValue();
+//			System.out.println("Excel data = "+CellData);
+//			break;
+//		case NUMERIC:
+//			if (DateUtil.isCellDateFormatted(cell))
+//			{
+//				CellData = String.valueOf(cell.getDateCellValue());
+//			}
+//			else
+//			{
+//				CellData = String.valueOf((long)cell.getNumericCellValue());
+//			}
+//			break;
+//		case BOOLEAN:
+//			CellData = Boolean.toString(cell.getBooleanCellValue());
+//			break;
+//		case BLANK:
+//			CellData = "";
+//			break;
+//		}
 		// wb.close();
 		inputStream.close();
-		return data;
+		return CellData;
 	}	
 
 	//To read excel data using column header
 	public static String getCellData(String SheetName ,String columnName, int rowNum) throws EncryptedDocumentException, IOException 
 	{
 		File f = new File(ExcelPATH);
-		
+
 		//Create an object of FileInputStream class to read excel file
-        FileInputStream inputStream = new FileInputStream(f);
-        
-        //creating workbook instance that refers to .xls file
-        XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
-		
-        XSSFSheet sh = wb.getSheet(SheetName);
-        //XSSFSheet sh = wb.getSheetAt(0);    //0 - index of 1st sheet
-        
-        //adding all the column header names to the map 'columns'
-	        sh.getRow(0).forEach(cell ->{
-	        	excelColumns.put(cell.getStringCellValue(), cell.getColumnIndex());
-	        });
-        
+		FileInputStream inputStream = new FileInputStream(f);
+
+		//creating workbook instance that refers to .xls file
+		XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
+
+		XSSFSheet sh = wb.getSheet(SheetName);
+		//XSSFSheet sh = wb.getSheetAt(0);    //0 - index of 1st sheet
+
+		//adding all the column header names to the map 'columns'
+		sh.getRow(0).forEach(cell ->{
+			excelColumns.put(cell.getStringCellValue(), cell.getColumnIndex());
+		});
+
 		return readData(SheetName, rowNum, excelColumns.get(columnName));
 	}
-	
-	
+
+
 	//To write data into excel
 	public static void writeToExcel(String sheet , int rowNum , int colNum, String data) throws Exception
 	{
@@ -100,49 +128,49 @@ public class ExcelOperation implements AutoConst
 			Thread.sleep(1000);
 			//System.out.println("Write values : "+sheet +"|"+rowNum+"|"+colNum+"|"+data);
 			File f = new File(ExcelPATH);
-			
+
 			//Create an object of FileInputStream class to read excel file
-	        FileInputStream inputStream = new FileInputStream(f);
-	        
-	        //creating workbook instance that refers to .xls file
-	        XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
-			
-	        //creating a Sheet object using the sheet Name
-	        //XSSFSheet sh=wb.getSheetAt(1);
-	        XSSFSheet sh = wb.getSheet(sheet);
-	        
-	        //Create a row object to retrieve row at index m
-	        XSSFRow row=sh.getRow(rowNum);
-	        if(row ==null)
-            {
-                row = sh.createRow(rowNum);
-            }
-	        
-	        //create a cell object to enter value in it using cell Index
-	        XSSFCell cell = row.getCell(colNum);
-	        if (cell == null) 
-	        {
-                cell = row.createCell(colNum);
-            }
-            cell.setCellValue(data);
-	        System.out.println("Row : "+rowNum+" | Cell :"+colNum+" | Data : "+data);
-	        
-	        // Write the data back in the Excel file
-	        FileOutputStream outputStream = new FileOutputStream(ExcelPATH);
-	        wb.write(outputStream);
+			FileInputStream inputStream = new FileInputStream(f);
+
+			//creating workbook instance that refers to .xls file
+			XSSFWorkbook wb=new XSSFWorkbook(inputStream); 
+
+			//creating a Sheet object using the sheet Name
+			//XSSFSheet sh=wb.getSheetAt(1);
+			XSSFSheet sh = wb.getSheet(sheet);
+
+			//Create a row object to retrieve row at index m
+			XSSFRow row=sh.getRow(rowNum);
+			if(row ==null)
+			{
+				row = sh.createRow(rowNum);
+			}
+
+			//create a cell object to enter value in it using cell Index
+			XSSFCell cell = row.getCell(colNum);
+			if (cell == null) 
+			{
+				cell = row.createCell(colNum);
+			}
+			cell.setCellValue(data);
+			System.out.println("Row : "+rowNum+" | Cell :"+colNum+" | Data : "+data);
+
+			// Write the data back in the Excel file
+			FileOutputStream outputStream = new FileOutputStream(ExcelPATH);
+			wb.write(outputStream);
 			Thread.sleep(1000);
-			
+
 			inputStream.close();
 			outputStream.flush();
 			outputStream.close();
-	        
+
 		} catch (Exception e) {
 			throw(e);		
-			}
-		
+		}
+
 	}
-	
-	
-		
-	
+
+
+
+
 }

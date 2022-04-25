@@ -16,6 +16,7 @@ import CommonUtility.ExcelOperation;
 import CommonUtility.CommonMethods;
 import CommonUtility.ScreenShot;
 import CommonUtility.SetUp;
+import TestScript.leadCreationTest1;
 
 public class LeadCreation extends SetUp
 {
@@ -67,24 +68,24 @@ public class LeadCreation extends SetUp
 		CommonMethods.highLight(sales);
 		// GenericUtils.mouseHover(login.sales());
 		sales.click();
-		ScreenShot.takeSnapShot(driver,"sales.png");
+		ScreenShot.takeSnapShot("sales");
 		 
-		try 
-		{
-			CommonMethods.ExWait(Leads);
-			CommonMethods.highLight(Leads());
-			Leads().click();
-			ScreenShot.takeSnapShot(driver,"Leads.png");
-		}catch(Exception e){}
+		/*
+		 * try { CommonMethods.ExWait(Leads); CommonMethods.highLight(Leads());
+		 * Leads().click(); ScreenShot.takeSnapShot("Leads"); }catch(Exception e){}
+		 */
 		
-		//CommonMethods.ExWait(New);
+		CommonMethods.ExWait(New);
 		CommonMethods.highLight(New);
 		CommonMethods.mouseHover(New);
-		ScreenShot.takeSnapShot(driver,"new.png");
+		Thread.sleep(2000);
+		ScreenShot.takeSnapShot("NewLead");
 
 		CommonMethods.ExWait(HomeLoan);
 		CommonMethods.highLight(HomeLoan);
 		HomeLoan.click();
+		Thread.sleep(2000);
+
 		 
 		 //ScreenShot.takeSnapShot(driver,"C:\\Users\\Vrunda Vibhute\\eclipse-workspace\\KotakHL_Lead\\Screenshots\\newLead.png");
 		 //ScreenShot.Ashot(driver,"C:\\Users\\Vrunda Vibhute\\eclipse-workspace\\KotakHL_Lead\\Screenshots\\ashot1.jpg");
@@ -357,110 +358,109 @@ public class LeadCreation extends SetUp
 		try {
 			
 		//Source
-			wait.until(ExpectedConditions.visibilityOf(leadSourceLbl()));
-			//CommonMethods.selectByText(leadSrcLOV(),ExcelOperation.readData("Sheet1", 1, 2));
-			CommonMethods.selectByText(leadSrcLOV(),ExcelOperation.getCellData("Sheet1","Lead Source",1));
+			//wait.until(ExpectedConditions.visibilityOf(leadSourceLbl()));
+			//CommonMethods.selectByText(leadSrcLOV(),ExcelOperation.readData("HLNewLead", 1, 2));
+			CommonMethods.selectByText(leadSrcLOV(),"HLNewLead","Lead Source",1);
 			System.out.println(leadSourceLbl().getText()+"LOVS :"+leadSrcLOV().getText());
 			
 		//SubSource
 			Thread.sleep(1000);
-			wait.until(ExpectedConditions.visibilityOf(leadSourceLbl()));
-			//CommonMethods.selectByText(subSrcLov(),ExcelOperation.readData("Sheet1", 1, 3));
-			CommonMethods.selectByText(subSrcLov(),ExcelOperation.getCellData("Sheet1","Sub Source",1));
+			//wait.until(ExpectedConditions.visibilityOf(leadSourceLbl()));
+			//CommonMethods.selectByText(subSrcLov(),ExcelOperation.readData("HLNewLead", 1, 3));
+			CommonMethods.selectByText(subSrcLov(),"HLNewLead","Sub Source",1);
 			System.out.println(subSrcLbl().getText()+"LOVs : "+subSrcLov().getText());
 			
 		//Lead Priority
-			wait.until(ExpectedConditions.visibilityOf(leadPriorityLbl()));
-			//CommonMethods.selectByText(leadPriorityLOV(),ExcelOperation.readData("Sheet1", 1, 4));
-			CommonMethods.selectByText(leadPriorityLOV(),ExcelOperation.getCellData("Sheet1","Lead Priority",1));
+			//wait.until(ExpectedConditions.visibilityOf(leadPriorityLbl()));
+			//CommonMethods.selectByText(leadPriorityLOV(),ExcelOperation.readData("HLNewLead", 1, 4));
+			CommonMethods.selectByText(leadPriorityLOV(),"HLNewLead","Lead Priority",1);
 			System.out.println(leadPriorityLbl().getText()+"LOVs : "+leadPriorityLOV().getText());
 		
 		//Applicant Type
-			wait.until(ExpectedConditions.visibilityOf(applcationType()));
-			//CommonMethods.selectByText(applcationType(), ExcelOperation.readData("Sheet1", 1, 5));
-			CommonMethods.selectByText(applcationType(), ExcelOperation.getCellData("Sheet1","Applicant Type",1));
+			//wait.until(ExpectedConditions.visibilityOf(applcationType()));
+			//CommonMethods.selectByText(applcationType(), ExcelOperation.readData("HLNewLead", 1, 5));
+			CommonMethods.selectByText(applcationType(), "HLNewLead","Applicant Type",1);
 			System.out.println(appTypeLbl().getText()+ "LOVs : "+applcationType().getText());
 
-			ScreenShot.takeSnapShot(driver,"Leadcreate1.png");
+			ScreenShot.takeSnapShot("Leadcreate1");
 
 			CommonMethods.scrollByVisibilityofElement(prodTypeLov());
 			
 		//Product Type
-			wait.until(ExpectedConditions.visibilityOf(prodTypeLbl()));
-			//CommonMethods.selectByText(prodTypeLov(),ExcelOperation.readData("Sheet1",1, 6));
-			CommonMethods.selectByText(prodTypeLov(),ExcelOperation.getCellData("Sheet1","Product Type",1));
+			//wait.until(ExpectedConditions.visibilityOf(prodTypeLbl()));
+			//CommonMethods.selectByText(prodTypeLov(),ExcelOperation.readData("HLNewLead",1, 6));
+			CommonMethods.selectByText(prodTypeLov(),"HLNewLead","Product Type",1);
 			System.out.println(prodTypeLbl().getText()+"LOVs :"+prodTypeLov().getText());
 			
 			
 		//Salutation
-			wait.until(ExpectedConditions.visibilityOf(salutation()));
-			//CommonMethods.selectByText(salutation(),ExcelOperation.readData("Sheet1",1,7));
-			CommonMethods.selectByText(salutation(),ExcelOperation.getCellData("Sheet1","Salutation",1));
+			//wait.until(ExpectedConditions.visibilityOf(salutation()));
+			//CommonMethods.selectByText(salutation(),ExcelOperation.readData("HLNewLead",1,7));
+			CommonMethods.selectByText(salutation(),"HLNewLead","Salutation",1);
 			System.out.println(appNameLbl().getText()+ "LOVs :"+salutation().getText());
 			
 		//FirstName
-			wait.until(ExpectedConditions.visibilityOf(firstName()));
-			//firstName().sendKeys(ExcelOperation.readData("Sheet1", 1, 8));
-			firstName().sendKeys(ExcelOperation.getCellData("Sheet1","First Name",1));
+			//firstName().sendKeys(ExcelOperation.getCellData("HLNewLead","First Name",1));
+			CommonMethods.input(firstName, "HLNewLead","First Name",1);
 			System.out.println(appNameLbl().getText()+" = "+firstName().getAttribute("value"));
 		
 		//Middle Name
-			//middleName().sendKeys(ExcelOperation.readData("Sheet1", 1, 9));
+			//middleName().sendKeys(ExcelOperation.readData("HLNewLead", 1, 9));
 			//System.out.println(appNameLbl().getText()+ "= "+middleName().getAttribute("value"));
 			
 		//Lastname
-			//lastName().sendKeys(ExcelOperation.readData("Sheet1", 1, 10));
-			lastName().sendKeys(ExcelOperation.getCellData("Sheet1","Last Name",1));
+			//lastName().sendKeys(ExcelOperation.readData("HLNewLead", 1, 10));
+			//lastName().sendKeys(ExcelOperation.getCellData("HLNewLead","Last Name",1));
+			CommonMethods.input(lastName, "HLNewLead","Last Name",1);
 			System.out.println(appNameLbl().getText()+ "= "+lastName().getAttribute("value"));
 			
 		//Mobile No
-			wait.until(ExpectedConditions.visibilityOf(mobileNo()));
-			mobileNo().sendKeys(ExcelOperation.getCellData("Sheet1","Mobile No",1));
-			//mobileNo().sendKeys(ExcelOperation.readData("Sheet1", 1, 11));
+			CommonMethods.input(mobileNo, "HLNewLead","Mobile No", 1);
 			System.out.println(mobileNoLbl().getText()+ "= "+mobileNo().getAttribute("value"));
+			
 			String MobileNoLbl = mobileNoLbl().getText();
 			String MobileNo = mobileNo().getAttribute("value");
 			
 		//EmailID	
 			wait.until(ExpectedConditions.visibilityOf(eMail()));
-			//eMail().sendKeys(ExcelOperation.readData("Sheet1", 1, 12));
-			eMail().sendKeys(ExcelOperation.getCellData("Sheet1","Email",1));
+			//eMail().sendKeys(ExcelOperation.readData("HLNewLead", 1, 12));
+			eMail().sendKeys(ExcelOperation.getCellData("HLNewLead","Email",1));
 			System.out.println(eMailLbl().getText()+ "= "+eMail().getAttribute("value"));
 			
 		//DOB
 			wait.until(ExpectedConditions.visibilityOf(DOBField()));
-			//DOBField().sendKeys(ExcelOperation.readData("Sheet1", 1, 13));
-			DOBField().sendKeys(ExcelOperation.getCellData("Sheet1","DOB",1));
+			//DOBField().sendKeys(ExcelOperation.readData("HLNewLead", 1, 13));
+			DOBField().sendKeys(ExcelOperation.getCellData("HLNewLead","DOB",1));
 			System.out.println(DOBLbl().getText()+ "= "+DOBField().getAttribute("value"));
 		
 		//Gross Annual Income
-			wait.until(ExpectedConditions.visibilityOf(AnnualIncome()));
+			//wait.until(ExpectedConditions.visibilityOf(AnnualIncome()));
 			AnnualIncome().clear();
-			//AnnualIncome().sendKeys(ExcelOperation.readData("Sheet1", 1, 14));
-			AnnualIncome().sendKeys(ExcelOperation.getCellData("Sheet1", "Annual Income",1));
+			//AnnualIncome().sendKeys(ExcelOperation.readData("HLNewLead", 1, 14));
+			AnnualIncome().sendKeys(ExcelOperation.getCellData("HLNewLead", "Annual Income",1));
 			System.out.println(AnnualIncomeLbl().getText() +" = "+AnnualIncome().getAttribute("value"));
 			
 		//Property Identified
-			wait.until(ExpectedConditions.visibilityOf(PropIdentifiedFld()));
-			//CommonMethods.selectByText(PropIdentifiedFld(),ExcelOperation.readData("Sheet1", 1, 15));
-			CommonMethods.selectByText(PropIdentifiedFld(),ExcelOperation.getCellData("Sheet1","Property Identified",1));
+			//wait.until(ExpectedConditions.visibilityOf(PropIdentifiedFld()));
+			//CommonMethods.selectByText(PropIdentifiedFld(),ExcelOperation.readData("HLNewLead", 1, 15));
+			CommonMethods.selectByText(PropIdentifiedFld(),"HLNewLead","Property Identified",1);
 			System.out.println(PropIdentifiedLbl().getText()+" = "+PropIdentifiedFld().getAttribute("value"));
 		
 		//Loan Amount
 			wait.until(ExpectedConditions.visibilityOf(loanAmtFld()));
-			//loanAmtFld().sendKeys(ExcelOperation.readData("Sheet1", 1, 16));
-			loanAmtFld().sendKeys(ExcelOperation.getCellData("Sheet1", "Loan Amount",1));
+			//loanAmtFld().sendKeys(ExcelOperation.readData("HLNewLead", 1, 16));
+			loanAmtFld().sendKeys(ExcelOperation.getCellData("HLNewLead", "Loan Amount",1));
 			System.out.println(loanAmtLbl().getText() +" = "+loanAmtFld().getAttribute("value"));
 			
 		//Loan Tenure
 			Thread.sleep(1000);
 			loanTenureFld().clear();
-			//loanTenureFld().sendKeys(ExcelOperation.readData("Sheet1", 1, 17));
-			loanTenureFld().sendKeys(ExcelOperation.getCellData("Sheet1", "Loan Tenure",1));
+			//loanTenureFld().sendKeys(ExcelOperation.readData("HLNewLead", 1, 17));
+			loanTenureFld().sendKeys(ExcelOperation.getCellData("HLNewLead", "Loan Tenure",1));
 			System.out.println(loanTenureLbl().getText()+" = "+loanTenureFld().getAttribute("value"));
 			
 			
-			ScreenShot.takeSnapShot(driver,"Leadcreate2.png");
+			ScreenShot.takeSnapShot("Leadcreate2");
 		
 			//Save and Proceed button
 			
@@ -475,35 +475,36 @@ public class LeadCreation extends SetUp
 				System.out.println("Save & Proceed Error pop up : "+saveProcError().getText());
 			} catch (Exception e) 
 			{			}
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 			
 			  //Write Data into excel 
 			try {
 				wait.until(ExpectedConditions.visibilityOf(leadStatusCodeLbl()));
 			  	row = ExcelOperation.getRowCount("Output");
-			  	System.out.println("No of Rows :" +row);
+			  	//System.out.println("No of Rows :" +row);
 				Thread.sleep(2000);
 				
-			  	ExcelOperation.writeToExcel("Output", 0, 0, MobileNoLbl);
-			  	ExcelOperation.writeToExcel("Output", row+1, 0, MobileNo);
-			  	ExcelOperation.writeToExcel("Output", 0, 1, leadIDLbl().getText());
-			  	ExcelOperation.writeToExcel("Output", row+1, 1, leadID().getText());
-			  	ExcelOperation.writeToExcel("Output", 0, 2, leadStatusCodeLbl().getText());
-			  	ExcelOperation.writeToExcel("Output", row+1, 2, leadStatusCodeVal().getText());
-			  	ExcelOperation.writeToExcel("Output", 0, 3 ,leadLastModifyLbl().getText());
-			  	ExcelOperation.writeToExcel("Output", row+1, 3, leadLastModifyVal().getText());
+				ExcelOperation.writeToExcel("Output", row+1, 0, leadCreationTest1.TestCaseIDName);
+			  	//ExcelOperation.writeToExcel("Output", 0, 0, MobileNoLbl);
+			  	ExcelOperation.writeToExcel("Output", row+1, 1, MobileNo);
+			  	//ExcelOperation.writeToExcel("Output", 0, 1, leadIDLbl().getText());
+			  	ExcelOperation.writeToExcel("Output", row+1, 2, leadID().getText());
+			  	//ExcelOperation.writeToExcel("Output", 0, 2, leadStatusCodeLbl().getText());
+			  	ExcelOperation.writeToExcel("Output", row+1, 3, leadStatusCodeVal().getText());
+			  	//ExcelOperation.writeToExcel("Output", 0, 3 ,leadLastModifyLbl().getText());
+			  	ExcelOperation.writeToExcel("Output", row+1, 4, leadLastModifyVal().getText());
 				Thread.sleep(2000);
-				ScreenShot.takeSnapShot(driver,"Leadcreate3.png");
+				ScreenShot.takeSnapShot("Leadcreate3");
 
 			  	String leadStatus = ExcelOperation.getCellData("Output", "Lead Status", row+1);
 				System.out.println("Lead status = "+leadStatus);
 				if(leadStatus.equalsIgnoreCase("New Lead"))
 				{
-					ExcelOperation.writeToExcel("Output",row+1, 4, "PASS");
+					ExcelOperation.writeToExcel("Output",row+1, 5, "PASS");
 				}
 				else
 				{
-					ExcelOperation.writeToExcel("Output", row+1, 4, "FAIL");
+					ExcelOperation.writeToExcel("Output", row+1, 5, "FAIL");
 				}
 				
 			  }
@@ -677,20 +678,14 @@ public class LeadCreation extends SetUp
 			CommonMethods.highLight(sales);
 			// GenericUtils.mouseHover(login.sales());
 			wait.until(ExpectedConditions.elementToBeClickable(sales)).click();
-	
-			//sales.click();
+			Thread.sleep(1000);
+		
+			//View Category
+			CommonMethods.selectByText(ViewCategory,"HLNewLead", "Product Type",1);
 			Thread.sleep(1000);
 			
-			//System.out.println("View Category :" +ExcelOperation.getCellData("Sheet1", "Product Type",1));
-			//System.out.println("View Sub Category :" +ExcelOperation.getCellData("Output","Lead Status",row));
-	
-			CommonMethods.ExWait(ViewCategory);
-			//CommonMethods.selectByText(ViewCategory,ExcelOperation.readData("Sheet1", 1, 6));
-			CommonMethods.selectByText(ViewCategory,ExcelOperation.getCellData("Sheet1", "Product Type",1));
-			Thread.sleep(1000);
-			
-			//CommonMethods.selectByText(ViewSubCat, ExcelOperation.readData("Output", 1, 2));
-			CommonMethods.selectByText(ViewSubCat, ExcelOperation.getCellData("Output","Lead Status",row));
+			//View sub Category
+			CommonMethods.selectByText(ViewSubCat,"Output","Lead Status",row);
 			
 			Thread.sleep(1000);
 			ViewSrchArrow.click();
@@ -726,36 +721,29 @@ public class LeadCreation extends SetUp
 	{
 		try 
 		{	
-			//Thread.sleep(2000);
-			//CommonMethods.scrollByVisibilityofElement(LeadEdit);
-			//CommonMethods.highLight(LeadEdit);
-			//LeadEdit.click();
-			//Thread.sleep(1000);
-			
+
 			followUp.click();
 			Thread.sleep(1000);
-			//followUpDate.sendKeys(ReadExcel.readData("Sheet1",1 ,18 ));
+			//followUpDate.sendKeys(ReadExcel.readData("HLNewLead",1 ,18 ));
 			followUpTodayDate.click();
 			System.out.println(followUpDtTimeLbl.getText()+" = "+followUpDate.getAttribute("value"));
 			
 			Thread.sleep(1000);
-			//followUpTime.sendKeys(ExcelOperation.readData("Sheet1", 1, 19));
+			//followUpTime.sendKeys(ExcelOperation.readData("HLNewLead", 1, 19));
 			followUpTime.clear();
-			followUpTime.sendKeys(ExcelOperation.getCellData("Sheet1","Follow up Time",1));
+			followUpTime.sendKeys(ExcelOperation.getCellData("HLNewLead","Follow up Time",1));
 			System.out.println(followUpDtTimeLbl.getText()+" = "+followUpTime.getAttribute("value"));
 			
 			Thread.sleep(1000);
-			//CommonMethods.selectByText(followUpReasonLOV, ExcelOperation.readData("Sheet1", 1, 20));
-			CommonMethods.selectByText(followUpReasonLOV, ExcelOperation.getCellData("Sheet1", "Follow Up Reason", 1));
-			System.out.println(followUpReasonLbl.getText()+"="+ExcelOperation.readData("Sheet1", 1, 20));
+			CommonMethods.selectByText(followUpReasonLOV,"HLNewLead", "Follow Up Reason", 1);
 			
 			Thread.sleep(1000);
-			//followUpRemarkTextFld.sendKeys(ExcelOperation.readData("Sheet1", 1, 21));
+			//followUpRemarkTextFld.sendKeys(ExcelOperation.readData("HLNewLead", 1, 21));
 			followUpRemarkTextFld.clear();
-			followUpRemarkTextFld.sendKeys(ExcelOperation.getCellData("Sheet1","Follow Up Remark",1));
+			followUpRemarkTextFld.sendKeys(ExcelOperation.getCellData("HLNewLead","Follow Up Remark",1));
 			System.out.println(followUpRemarkLbl.getText()+" = "+followUpRemarkTextFld.getAttribute("value"));
 			
-			ScreenShot.takeSnapShot(driver,"FollowupNew.png");
+			ScreenShot.takeSnapShot("FollowupNew");
 
 			Thread.sleep(2000);
 			saveProceedBtn.click();      //Save Button
@@ -775,24 +763,24 @@ public class LeadCreation extends SetUp
 				wait.until(ExpectedConditions.visibilityOf(leadStatusCodeLbl()));
 			  
 			  	//ExcelOperation.writeToExcel("Output", row+1, 2, leadStatusCodeVal().getText());
-			  	ExcelOperation.writeToExcel("Output", row, 2,"Follow-Up New" );
-			  	ExcelOperation.writeToExcel("Output", row, 3, leadLastModifyVal().getText());
+			  	ExcelOperation.writeToExcel("Output", row, 3,"Follow-Up New" );
+			  	ExcelOperation.writeToExcel("Output", row, 4, leadLastModifyVal().getText());
 			  	
 			  	String leadStatus = ExcelOperation.getCellData("Output", "Lead Status", row);
 				System.out.println("Lead status = "+leadStatus);
 				if(leadStatus.equalsIgnoreCase("Follow-Up New"))
 				{
-					ExcelOperation.writeToExcel("Output",row, 4, "PASS");
+					ExcelOperation.writeToExcel("Output",row, 5, "PASS");
 				}
 				else
 				{
-					ExcelOperation.writeToExcel("Output", row, 4, "FAIL");
+					ExcelOperation.writeToExcel("Output", row, 5, "FAIL");
 				}
 				
 			  }
 			  catch (Exception e) {}
 			 
-			ScreenShot.takeSnapShot(driver,"FollowupNew2.png");
+			ScreenShot.takeSnapShot("FollowupNew2");
 			
 			
 		} catch (Exception e) {

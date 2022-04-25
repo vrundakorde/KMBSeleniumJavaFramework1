@@ -27,7 +27,7 @@ public class SetUp implements AutoConst
 	{
 		Properties prop=new Properties();
 
-		FileInputStream fis =new FileInputStream("C:\\Users\\Vrunda Vibhute\\eclipse-workspace\\KotakHL_Lead\\src\\main\\java\\CommonUtility\\Config.properties");
+		FileInputStream fis =new FileInputStream("C:\\Users\\Vrunda Vibhute\\git\\KMBSeleniumJavaFramework1\\KotakHL_Lead\\src\\main\\java\\CommonUtility\\Config.properties");
 
 		prop.load(fis);
 		
